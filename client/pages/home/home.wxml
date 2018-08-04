@@ -1,0 +1,27 @@
+<!--pages/home/home.wxml-->
+<image class='bg' src='/images/bg.png'></image>
+<view class='hot-card'>
+    <view class='hot-title'>
+        <image class='hot-title-line' src='/images/line-red.png'></image>
+        <view class='hot-title-text'>{{items[0].name}}</view>
+        <image class='hot-title-line' src='/images/line-red.png'></image>
+    </view>
+    <image class='hot-info' src='/images/discount.png'></image>
+    <image class='hot-image' src='{{items[0].image}}'></image>
+</view>
+<view class='items-title'>
+    <image class='items-title-line' src='/images/line-black.png'></image>
+    <view class='items-title-text'>春季推荐</view>
+    <image class='items-title-line' src='/images/line-black.png'></image>
+</view>
+<view class='items-row' wx:for='{{items}}' wx:key='id' wx:if='{{index%2 === 1}}'>
+    <navigator class='item-card' wx:for='{{[items[index], items[index+1]]}}' wx:key='id'>
+        <image class='item-image' src='{{item.image}}' mode='widthFix'></image>
+        <view class='item-title'>{{item.name}}</view>
+        <view class='item-meta'>
+            <view class='item-currency'>￥</view>
+            <view class='item-price'>{{item.price}}</view>
+            <view class='item-add'>+</view>
+        </view>
+    </navigator>
+</view>
