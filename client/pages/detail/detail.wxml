@@ -1,2 +1,30 @@
 <!--pages/detail/detail.wxml-->
-<text>pages/detail/detail.wxml</text>
+<view class='item-card'>
+    <image class='item-image' src='{{item.image}}'></image>
+    <view class='item-title'>{{item.title}}</view>
+    <view class='item-source'>{{item.source}}</view>
+    <view class='item-meta'>
+        <view class='item-currency'>￥</view>
+        <view class='item-price'>{{item.price}}</view>
+    </view>
+</view>
+<view class='service-card'>
+    <view class='service-entry'>
+        <view class='service-item' wx:for='{{["7天免费退货", "24小时内发货并配送运费险"]}}' wx:key='unique'>
+            <image class='service-icon' src='/images/check-yellow.png'></image>
+            <view class='service-text'>{{item}}</view>
+        </view>
+    </view>
+    <view class='comment-entry'>
+        <view class='comment-button'>
+            <view class='comment-title'>已买评价</view>
+            <view class='comment-count'>1条</view>
+            <image class='comment-arrow' src='/images/grey-arrow.png'></image>
+        </view>
+        <view class='comment-preview'>"test"</view>
+    </view>
+</view>
+<view class='button-bottom'>
+    <view class='button-add-to-cart'>加入购物车</view>
+    <view class='button-buy-now'>立即购买</view>
+</view>
