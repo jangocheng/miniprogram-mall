@@ -1,49 +1,22 @@
 // pages/home/home.js
+var qcloud = require('../../vendor/wafer2-client-sdk/index')
+var config = require('../../config')
+var util = require('../../utils/util')
+
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        // 商品列表
-        items: [{
-            id: 1,
-            image: 'https://s3.cn-north-1.amazonaws.com.cn/u-img/product1.jpg',
-            name: '商品1',
-            price: 100,
-            source: '国内·广东',
-        }, {
-            id: 2,
-            image: 'https://s3.cn-north-1.amazonaws.com.cn/u-img/product2.jpg',
-            name: '商品2',
-            price: 200,
-            source: '国内·广东',
-        }, {
-            id: 3,
-            image: 'https://s3.cn-north-1.amazonaws.com.cn/u-img/product3.jpg',
-            name: '商品3',
-            price: 300,
-            source: '国内·广东',
-        }, {
-            id: 4,
-            image: 'https://s3.cn-north-1.amazonaws.com.cn/u-img/product4.jpg',
-            name: '商品4',
-            price: 400,
-            source: '国内·广东',
-        }, {
-            id: 5,
-            image: 'https://s3.cn-north-1.amazonaws.com.cn/u-img/product5.jpg',
-            name: '商品5',
-            price: 500,
-            source: '国内·广东',
-        }],
+        items: [], // 商品列表
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-
+        this.getItems()
     },
 
     /**
@@ -93,5 +66,32 @@ Page({
      */
     onShareAppMessage: function() {
 
+    },
+
+    /**
+     * 请求商品列表数据
+     */
+    getItems: function() {
+        util.showBusy('商品数据加载中...')
+        var that = this
+        qcloud.request({
+            url: config.service.itemsUrl,
+            success: res => {
+                let data = res.data
+                if (!data.code) {
+                    util.showSuccess('商品数据加载完成')
+                    that.setData({
+                        items: data.data
+                    })
+                } else {
+                    util.showModel('商品数据加载失败', data)
+                    console.log('data error', data)
+                }
+            },
+            fail: res => {
+                util.showModel('商品数据加载失败', res)
+                console.log('request fail', res)
+            }
+        })
     }
 })
