@@ -22,6 +22,9 @@ var showBusy = text => wx.showToast({
     duration: 10000
 })
 
+// 隐藏繁忙提示
+var hideBusy = () => wx.hideToast()
+
 // 显示成功提示
 var showSuccess = text => wx.showToast({
     title: text,
@@ -37,11 +40,13 @@ var showModel = (title, content) => {
         content: JSON.stringify(content),
         showCancel: false
     })
+    console.log('log', content)
 }
 
 module.exports = {
     formatTime,
     showBusy,
+    hideBusy,
     showSuccess,
     showModel
 }

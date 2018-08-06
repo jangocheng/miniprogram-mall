@@ -1,24 +1,22 @@
 // pages/detail/detail.js
+var qcloud = require('../../vendor/wafer2-client-sdk/index')
+var config = require('../../config')
+var util = require('../../utils/util')
+
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        item: {
-            id: 1,
-            image: 'https://product-1256088332.cos.ap-guangzhou.myqcloud.com/product2.jpg',
-            title: '商品',
-            price: 480.5,
-            source: '国内·广东'
-        },
+        item: {},
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-
+        this.getItem(options.id)
     },
 
     /**
@@ -68,5 +66,35 @@ Page({
      */
     onShareAppMessage: function() {
 
+    },
+
+    /**
+     * 请求单个商品数据
+     */
+    getItem(id) {
+        util.showBusy('商品数据加载中...')
+        qcloud.request({
+            url: config.service.itemUrl + id,
+            success: res => {
+                util.hideBusy()
+                let data = res.data
+                console.log(data);
+                if (!data.code) {
+                    this.setData({
+                        item: data.data
+                    })
+                } else {
+                    setTimeout(() => {
+                        wx.navigateBack()
+                    }, 2000)
+                }
+            },
+            fail: res => {
+                util.showModel('请求失败', res)
+                setTimeout(() => {
+                    wx.navigateBack()
+                }, 2000)
+            }
+        })
     }
 })

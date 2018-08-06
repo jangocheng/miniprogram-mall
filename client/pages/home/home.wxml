@@ -15,7 +15,7 @@
     <image class='items-title-line' src='/images/line-black.png'></image>
 </view>
 <view class='items-row' wx:for='{{items}}' wx:key='id' wx:if='{{index%2 === 1}}'>
-    <navigator class='item-card' wx:for='{{[items[index], items[index+1]]}}' wx:key='id'>
+    <navigator class='item-card' wx:for='{{[items[index], items[index+1]]}}' wx:key='id' url='/pages/detail/detail?id={{item.id}}'>
         <image class='item-image' src='{{item.image}}' mode='widthFix'></image>
         <view class='item-title'>{{item.title}}</view>
         <view class='item-meta'>

@@ -85,12 +85,10 @@ Page({
                     })
                 } else {
                     util.showModel('商品数据加载失败', data)
-                    console.log('data error', data)
                 }
             },
             fail: res => {
                 util.showModel('商品数据加载失败', res)
-                console.log('request fail', res)
             }
         })
     }
