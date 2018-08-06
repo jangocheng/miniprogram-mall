@@ -33,5 +33,9 @@ router.get('/message', controllers.message.get)
 router.post('/message', controllers.message.post)
 
 // --- 商品信息接口 Demo --- //
+// GET 用来处理商品列表的请求
 router.get('/items', controllers.items.list)
+// GET 用来处理商品详情的请求
+router.get('/items/:id', controllers.items.detail)
+
 module.exports = router
