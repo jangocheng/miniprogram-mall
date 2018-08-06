@@ -4,12 +4,13 @@ module.exports = {
         ctx.state.data = await DB.query("SELECT * FROM item;")
     },
     detail: async ctx => {
-        itemID = +ctx.params.id;
+        let item
+        let itemID = +ctx.params.id;
         if (!isNaN(itemID)) {
-            ctx.state.data = (await DB.query("SELECT * FROM item WHERE item.id = ?", [itemID]))[0]
+            item = (await DB.query("SELECT * FROM item WHERE item.id = ?", [itemID]))[0]
         } else {
-            ctx.state.data = {}
+            item = {}
         }
-
+        ctx.state.data = item
     }
 }

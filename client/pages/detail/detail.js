@@ -78,7 +78,6 @@ Page({
             success: res => {
                 util.hideBusy()
                 let data = res.data
-                console.log(data);
                 if (!data.code) {
                     this.setData({
                         item: data.data
