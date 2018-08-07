@@ -2,7 +2,7 @@
     "pages": [
         "pages/home/home",
         "pages/order/order",
-        "pages/trolley/trolley",
+        "pages/cart/cart",
         "pages/user/user",
         "pages/detail/detail"
     ],
@@ -28,10 +28,10 @@
                 "selectedIconPath": "images/order-sel.png"
             },
             {
-                "pagePath": "pages/trolley/trolley",
+                "pagePath": "pages/cart/cart",
                 "text": "购物车",
-                "iconPath": "images/trolley.png",
-                "selectedIconPath": "images/trolley-sel.png"
+                "iconPath": "images/cart.png",
+                "selectedIconPath": "images/cart-sel.png"
             },
             {
                 "pagePath": "pages/user/user",
