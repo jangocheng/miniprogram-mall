@@ -1,22 +1,31 @@
 // pages/user/user.js
+var qcloud = require('../../vendor/wafer2-client-sdk/index')
+var config = require('../../config')
+var util = require('../../utils/util')
+
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        userInfo: null,
-        // userInfo: {
-        //   nickName: "dev",
-        //   avatarUrl: "",
-        // }, // 虚拟数据
+        userInfo: null
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-
+        this.checkSession({
+            success: ({
+                userInfo
+            }) => {
+                this.setData({
+                    userInfo
+                })
+            },
+            error: () => {}
+        })
     },
 
     /**
@@ -66,5 +75,95 @@ Page({
      */
     onShareAppMessage: function() {
 
+    },
+
+    /**
+     * 检查用户 Session
+     */
+    checkSession: function({
+        success,
+        error
+    }) {
+        wx.checkSession({
+            success: () => {
+                this.getUserInfo({
+                    success,
+                    error
+                })
+            },
+            fail: () => {
+                error && error()
+            }
+        })
+    },
+
+    /**
+     * 用户点击登录按钮
+     */
+    onTapLogin: function() {
+        this.doQcloudLogin({
+            success: ({
+                userInfo
+            }) => {
+                this.setData({
+                    userInfo
+                })
+            }
+        })
+    },
+
+    /**
+     * 腾讯云登录接口操作
+     */
+    doQcloudLogin: function({
+        success,
+        error
+    }) {
+        qcloud.login({
+            success: res => {
+                if (res) {
+                    let userInfo = res
+                    success && success({
+                        userInfo
+                    })
+                } else {
+                    // 如果不是首次登录，不会返回用户信息，请求用户信息接口获取
+                    this.getUserInfo({
+                        success,
+                        error
+                    })
+                }
+            },
+            fail: () => {
+                error && error()
+            }
+        })
+    },
+
+    /**
+     * 获取用户信息
+     */
+    getUserInfo: function({
+        success,
+        error
+    }) {
+        qcloud.request({
+            url: config.service.requestUrl,
+            login: true,
+            success: res => {
+                let data = res.data
+                if (!data.code) {
+                    let userInfo = data.data
+                    success && success({
+                        userInfo
+                    })
+                } else {
+                    error && error()
+                }
+            },
+            fail: () => {
+                error && error()
+            }
+        })
     }
 })
