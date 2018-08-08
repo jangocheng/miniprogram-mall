@@ -3,13 +3,18 @@ var qcloud = require('../../vendor/wafer2-client-sdk/index')
 var config = require('../../config')
 var util = require('../../utils/util')
 
+const UNPROMPTED = 0
+const UNAUTHORIZED = 1
+const AUTHORIZED = 2
+
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        userInfo: null
+        userInfo: null,
+        locationAuthType: UNPROMPTED
     },
 
     /**
@@ -77,25 +82,6 @@ Page({
 
     },
 
-    /**
-     * 检查用户 Session
-     */
-    checkSession: function({
-        success,
-        error
-    }) {
-        wx.checkSession({
-            success: () => {
-                this.getUserInfo({
-                    success,
-                    error
-                })
-            },
-            fail: () => {
-                error && error()
-            }
-        })
-    },
 
     /**
      * 用户点击登录按钮
@@ -106,8 +92,37 @@ Page({
                 userInfo
             }) => {
                 this.setData({
-                    userInfo
+                    userInfo: userInfo
                 })
+            }
+        })
+    },
+
+    login({
+        success,
+        error
+    }) {
+        wx.getSetting({
+            success: res => {
+                if (res.authSetting['scope.userInfo'] === false) {
+                    this.setData({
+                        locationAuthType: UNAUTHORIZED
+                    })
+                    // 已拒绝授权
+                    wx.showModal({
+                        title: '提示',
+                        content: '请授权我们获取您的用户信息',
+                        showCancel: false
+                    })
+                } else {
+                    this.setData({
+                        locationAuthType: AUTHORIZED
+                    })
+                    this.doQcloudLogin({
+                        success,
+                        error
+                    })
+                }
             }
         })
     },
@@ -141,6 +156,27 @@ Page({
     },
 
     /**
+     * 检查用户 Session
+     */
+    checkSession: function({
+        success,
+        error
+    }) {
+        wx.checkSession({
+            success: () => {
+                this.getUserInfo({
+                    success,
+                    error
+                })
+            },
+            fail: () => {
+                error && error()
+            }
+        })
+    },
+
+
+    /**
      * 获取用户信息
      */
     getUserInfo: function({
@@ -165,5 +201,7 @@ Page({
                 error && error()
             }
         })
-    }
+    },
+
+
 })
