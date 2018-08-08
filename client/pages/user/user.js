@@ -82,6 +82,26 @@ Page({
 
     },
 
+    /**
+     * 用户点击地址
+     */
+
+    onTapAddress() {
+        wx.showToast({
+            icon: 'none',
+            title: '此功能暂未开放'
+        })
+    },
+
+    /**
+     * 用户点击客服
+     */
+    onTapSupport() {
+        wx.showToast({
+            icon: 'none',
+            title: '此功能暂未开放'
+        })
+    },
 
     /**
      * 用户点击登录按钮
@@ -98,6 +118,9 @@ Page({
         })
     },
 
+    /**
+     * 登录检查
+     */
     login({
         success,
         error
@@ -175,7 +198,6 @@ Page({
         })
     },
 
-
     /**
      * 获取用户信息
      */
@@ -201,7 +223,5 @@ Page({
                 error && error()
             }
         })
-    },
-
-
+    }
 })
