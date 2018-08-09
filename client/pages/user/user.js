@@ -26,7 +26,7 @@ Page({
                 userInfo
             }) => {
                 this.setData({
-                    userInfo
+                    userInfo: userInfo
                 })
             },
             error: () => {}
@@ -181,10 +181,7 @@ Page({
     /**
      * 检查用户 Session
      */
-    checkSession: function({
-        success,
-        error
-    }) {
+    checkSession: function({success, error }) {
         wx.checkSession({
             success: () => {
                 this.getUserInfo({
@@ -201,10 +198,7 @@ Page({
     /**
      * 获取用户信息
      */
-    getUserInfo: function({
-        success,
-        error
-    }) {
+    getUserInfo: function({ success, error }) {
         qcloud.request({
             url: config.service.requestUrl,
             login: true,
