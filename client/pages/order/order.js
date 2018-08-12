@@ -10,27 +10,63 @@ Page({
      */
     data: {
         userInfo: null,
-        locationAuthType: app.data.locationAuthType
+        locationAuthType: app.data.locationAuthType,
+        orders: [
+            {
+                id: 0,
+                list: [{
+                    count: 1,
+                    image: 'https://services.cdn.binarization.com/weapp/mall/item/item1.jpg',
+                    name: '商品1',
+                    price: 50.5,
+                }]
+            },
+            {
+                id: 1,
+                list: [{
+                    count: 1,
+                    image: 'https://services.cdn.binarization.com/weapp/mall/item/item2.jpg',
+                    name: '商品1',
+                    price: 50.5,
+                },
+                {
+                    count: 1,
+                    image: 'https://services.cdn.binarization.com/weapp/mall/item/item3.jpg',
+                    name: '商品2',
+                    price: 50.5,
+                }
+                ]
+            },
+            {
+                id: 2,
+                list: [{
+                    count: 1,
+                    image: 'https://services.cdn.binarization.com/weapp/mall/item/item4.jpg',
+                    name: '商品2',
+                    price: 50.5,
+                }]
+            }
+        ], // Orders
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function(options) {
+    onLoad: function (options) {
 
     },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
-    onReady: function() {
+    onReady: function () {
 
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function() {
+    onShow: function () {
         // 同步授权状态
         this.setData({
             locationAuthType: app.data.locationAuthType
@@ -47,42 +83,42 @@ Page({
     /**
      * 生命周期函数--监听页面隐藏
      */
-    onHide: function() {
+    onHide: function () {
 
     },
 
     /**
      * 生命周期函数--监听页面卸载
      */
-    onUnload: function() {
+    onUnload: function () {
 
     },
 
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
-    onPullDownRefresh: function() {
+    onPullDownRefresh: function () {
 
     },
 
     /**
      * 页面上拉触底事件的处理函数
      */
-    onReachBottom: function() {
+    onReachBottom: function () {
 
     },
 
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage: function() {
+    onShareAppMessage: function () {
 
     },
 
     /**
      * 用户点击登录
      */
-    onTapLogin: function() {
+    onTapLogin: function () {
         app.login({
             success: ({
                 userInfo
