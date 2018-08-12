@@ -1,6 +1,4 @@
 // pages/user/user.js
-var qcloud = require('../../vendor/wafer2-client-sdk/index')
-var config = require('../../config')
 const app = getApp()
 
 Page({
@@ -9,6 +7,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+        userInfo: null,
         locationAuthType: app.data.locationAuthType
     },
 
@@ -35,9 +34,7 @@ Page({
             locationAuthType: app.data.locationAuthType
         })
         app.checkSession({
-            success: ({
-                userInfo
-            }) => {
+            success: ({ userInfo }) => {
                 this.setData({
                     userInfo
                 })
@@ -106,9 +103,7 @@ Page({
      */
     onTapLogin: function() {
         app.login({
-            success: ({
-                userInfo
-            }) => {
+            success: ({ userInfo }) => {
                 this.setData({
                     userInfo,
                     locationAuthType: app.data.locationAuthType
