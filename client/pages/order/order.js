@@ -16,8 +16,8 @@ Page({
                 id: 0,
                 list: [{
                     count: 1,
-                    image: 'https://services.cdn.binarization.com/weapp/mall/item/item1.jpg',
-                    name: '商品1',
+                    image: 'https://services.cdn.binarization.com/weapp/mall/items/item1.jpg',
+                    title: '商品1',
                     price: 50.5,
                 }]
             },
@@ -25,14 +25,14 @@ Page({
                 id: 1,
                 list: [{
                     count: 1,
-                    image: 'https://services.cdn.binarization.com/weapp/mall/item/item2.jpg',
-                    name: '商品1',
+                    image: 'https://services.cdn.binarization.com/weapp/mall/items/item2.jpg',
+                    title: '商品1',
                     price: 50.5,
                 },
                 {
                     count: 1,
-                    image: 'https://services.cdn.binarization.com/weapp/mall/item/item3.jpg',
-                    name: '商品2',
+                    image: 'https://services.cdn.binarization.com/weapp/mall/items/item3.jpg',
+                    title: '商品2',
                     price: 50.5,
                 }
                 ]
@@ -41,8 +41,8 @@ Page({
                 id: 2,
                 list: [{
                     count: 1,
-                    image: 'https://services.cdn.binarization.com/weapp/mall/item/item4.jpg',
-                    name: '商品2',
+                    image: 'https://services.cdn.binarization.com/weapp/mall/items/item4.jpg',
+                    title: '商品2',
                     price: 50.5,
                 }]
             }
@@ -120,9 +120,7 @@ Page({
      */
     onTapLogin: function () {
         app.login({
-            success: ({
-                userInfo
-            }) => {
+            success: ({ userInfo }) => {
                 this.setData({
                     userInfo,
                     locationAuthType: app.data.locationAuthType
