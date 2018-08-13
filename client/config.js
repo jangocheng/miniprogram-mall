@@ -11,6 +11,9 @@ var config = {
     service: {
         host,
 
+        // 商品订单地址
+        orderUrl: `${host}/weapp/order`,
+
         // 商品列表地址
         itemsUrl: `${host}/weapp/items`,
 

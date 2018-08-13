@@ -26,5 +26,5 @@
 </view>
 <view class='button-bottom'>
     <view class='button-add-to-cart'>加入购物车</view>
-    <view class='button-buy-now'>立即购买</view>
+    <view class='button-buy-now' bindtap='onTapBuy'>立即购买</view>
 </view>
