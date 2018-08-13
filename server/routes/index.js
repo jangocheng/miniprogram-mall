@@ -37,5 +37,7 @@ router.post('/message', controllers.message.post)
 router.get('/items', controllers.items.list)
 // GET 用来处理商品详情的请求
 router.get('/items/:id', controllers.items.detail)
+// POST 创建订单
+router.post('/order', validationMiddleware, controllers.order.add)
 
 module.exports = router
