@@ -41,5 +41,7 @@ router.get('/items/:id', controllers.items.detail)
 router.get('/orders', validationMiddleware, controllers.order.list)
 // POST 创建订单
 router.post('/orders', validationMiddleware, controllers.order.add)
+// PUT 商品添加到购物车列表
+router.put('/cart', validationMiddleware, controllers.cart.add)
 
 module.exports = router
