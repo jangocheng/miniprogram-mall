@@ -12,7 +12,7 @@ var config = {
         host,
 
         // 商品订单地址
-        orderUrl: `${host}/weapp/order`,
+        orderUrl: `${host}/weapp/orders`,
 
         // 商品列表地址
         itemsUrl: `${host}/weapp/items`,

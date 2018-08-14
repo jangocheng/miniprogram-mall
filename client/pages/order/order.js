@@ -98,6 +98,7 @@ Page({
                 })
             }
         })
+        this.getOrders()
     },
 
     /**
@@ -115,7 +116,7 @@ Page({
                 let data = res.data
                 if (!data.code) {
                     this.setData({
-                        orderList: data.data
+                        orders: data.data
                     })
                 } else {
                     wx.showToast({
