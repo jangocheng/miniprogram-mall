@@ -36,7 +36,16 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        // 同步授权状态
+        this.setData({
+            locationAuthType: app.data.locationAuthType
+        })
+        app.checkSession({
+            success: ({ userInfo }) => {
+                this.setData({ userInfo })
+                this.getCart()
+            }
+        })
     },
 
     /**
@@ -84,6 +93,7 @@ Page({
                     userInfo,
                     locationAuthType: app.data.locationAuthType
                 })
+                this.getCart()
             },
             error: () => {
                 this.setData({
@@ -92,4 +102,38 @@ Page({
             }
         })
     },
+
+    /**
+     * 从服务器拉取购物车数据
+     */
+    getCart: function () {
+        wx.showLoading({
+            title: '刷新购物车数据...',
+        })
+        qcloud.request({
+            url: config.service.cartUrl,
+            login: true,
+            success: res => {
+                wx.hideLoading()
+                let data = res.data
+                if (!data.code) {
+                    this.setData({
+                        items: data.data
+                    })
+                } else {
+                    wx.showToast({
+                        icon: 'none',
+                        title: '数据刷新失败',
+                    })
+                }
+            },
+            fail: () => {
+                wx.hideLoading()
+                wx.showToast({
+                    icon: 'none',
+                    title: '数据刷新失败',
+                })
+            }
+        })
+    }
 })
