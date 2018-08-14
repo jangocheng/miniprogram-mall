@@ -16,5 +16,13 @@ module.exports = {
             await DB.query('UPDATE cart_user SET count = ? WHERE cart_user.id = ? AND cart_user.user = ?', [count, item.id, user])
         }
         ctx.state.data = {}
+    },
+
+    /**
+     * 拉取购物车商品列表
+     */
+    list: async ctx => {
+        let user = ctx.state.$wxInfo.userinfo.openId
+        ctx.state.data = await DB.query('SELECT * FROM cart_user LEFT JOIN item ON cart_user.id = item.id WHERE cart_user.user = ?', [user])
     }
 } 

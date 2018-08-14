@@ -43,5 +43,7 @@ router.get('/orders', validationMiddleware, controllers.order.list)
 router.post('/orders', validationMiddleware, controllers.order.add)
 // PUT 商品添加到购物车列表
 router.put('/cart', validationMiddleware, controllers.cart.add)
+// GET 获取购物车商品列表
+router.get('/cart', validationMiddleware, controllers.cart.list)
 
 module.exports = router
