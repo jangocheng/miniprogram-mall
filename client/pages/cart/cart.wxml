@@ -13,11 +13,11 @@
 </view>
 <view wx:elif='{{items.length > 0}}'>
     <view class='cart-top'>
-        <view class='cart-total'>
+        <view class='select-all'>
             <view class="select-wrapper white {{isSelectAll ? 'select' : ''}}">
                 <image class='select-image' src='/images/select-black.png' wx:if='{{isSelectAll}}'></image>
             </view>
-            <view class='select-all'>全选</view>
+            <view class='select-text'>全选</view>
         </view>
         <view class='cart-edit'>{{isEdit ? '完成' : '编辑'}}</view>
     </view>
@@ -40,11 +40,11 @@
         </view>
     </scroll-view>
     <view class='checkout'>
-        <view class='cart-total'>
+        <view class='select-all'>
             <view class="select-wrapper {{isSelectAll ? 'select' : ''}}">
                 <image class='select-image' src='/images/select-black.png' wx:if='{{isSelectAll}}'></image>
             </view>
-            <view class='select-all'>全选</view>
+            <view class='select-text'>全选</view>
         </view>
         <view class='checkout-meta'>
             <view>总价</view>

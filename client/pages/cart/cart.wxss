@@ -32,7 +32,7 @@
     padding-left: 24rpx;
 }
 
-.cart-total {
+.select-all {
     display: flex;
     align-items: center;
     padding-left: 35rpx;
@@ -63,7 +63,7 @@
     height: 16rpx;
 }
 
-.select-all, .cart-edit {
+.select-text, .cart-edit {
     margin-left: 18rpx;
     margin-right: 33rpx;
     color: rgb(52, 55, 61, 0.8);
