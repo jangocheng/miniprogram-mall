@@ -21,7 +21,7 @@
         <view class='item-meta'>
             <view class='item-currency'>￥</view>
             <view class='item-price'>{{item.price}}</view>
-            <view class='item-add'>+</view>
+            <view class='item-add' catchtap='addToCart' data-id='{{item.id}}'>+</view>
         </view>
     </navigator>
 </view>
