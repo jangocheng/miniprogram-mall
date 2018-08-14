@@ -11,42 +11,7 @@ Page({
     data: {
         userInfo: null,
         locationAuthType: app.data.locationAuthType,
-        orders: [
-            {
-                id: 0,
-                list: [{
-                    count: 1,
-                    image: 'https://services.cdn.binarization.com/weapp/mall/items/item1.jpg',
-                    title: '商品1',
-                    price: 50.5,
-                }]
-            },
-            {
-                id: 1,
-                list: [{
-                    count: 1,
-                    image: 'https://services.cdn.binarization.com/weapp/mall/items/item2.jpg',
-                    title: '商品1',
-                    price: 50.5,
-                },
-                {
-                    count: 1,
-                    image: 'https://services.cdn.binarization.com/weapp/mall/items/item3.jpg',
-                    title: '商品2',
-                    price: 50.5,
-                }
-                ]
-            },
-            {
-                id: 2,
-                list: [{
-                    count: 1,
-                    image: 'https://services.cdn.binarization.com/weapp/mall/items/item4.jpg',
-                    title: '商品2',
-                    price: 50.5,
-                }]
-            }
-        ], // Orders
+        orders: [], // Orders
     },
 
     /**
@@ -76,6 +41,7 @@ Page({
                 this.setData({
                     userInfo
                 })
+                this.getOrders()
             }
         })
     },
@@ -129,6 +95,40 @@ Page({
             error: () => {
                 this.setData({
                     locationAuthType: app.data.locationAuthType
+                })
+            }
+        })
+    },
+
+    /**
+     * GET 获取订单数据
+     */
+    getOrders() {
+        wx.showLoading({
+            title: '刷新订单数据...',
+        })
+        qcloud.request({
+            url: config.service.orderUrl,
+            login: true,
+            success: res => {
+                wx.hideLoading()
+                let data = res.data
+                if (!data.code) {
+                    this.setData({
+                        orderList: data.data
+                    })
+                } else {
+                    wx.showToast({
+                        icon: 'none',
+                        title: '刷新订单数据失败',
+                    })
+                }
+            },
+            fail: () => {
+                wx.hideLoading()
+                wx.showToast({
+                    icon: 'none',
+                    title: '刷新订单数据失败',
                 })
             }
         })
