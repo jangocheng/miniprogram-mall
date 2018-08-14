@@ -136,5 +136,41 @@ Page({
                 }, 2000)
             }
         })
-    }
+    },
+
+    /**
+     * 添加商品到购物车
+     */
+    addToCart: function () {
+        wx.showLoading({
+            title: '正在添加到购物车...',
+        })
+        qcloud.request({
+            url: config.service.cartUrl,
+            login: true,
+            method: 'PUT',
+            data: this.data.item,
+            success: res => {
+                wx.hideLoading()
+                let data = res.data
+                if (!data.code) {
+                    wx.showToast({
+                        title: '已添加到购物车',
+                    })
+                } else {
+                    wx.showToast({
+                        icon: 'none',
+                        title: '添加到购物车失败',
+                    })
+                }
+            },
+            fail: () => {
+                wx.hideLoading()
+                wx.showToast({
+                    icon: 'none',
+                    title: '添加到购物车失败',
+                })
+            }
+        })
+    },
 })

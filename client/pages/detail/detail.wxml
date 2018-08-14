@@ -11,7 +11,7 @@
 <view class='service-card'>
     <view class='service-entry'>
         <view class='service-item' wx:for='{{["7天免费退货", "24小时内发货并配送运费险"]}}' wx:key='unique'>
-            <image class='service-icon' src='/images/check-yellow.png'></image>
+            <image class='service-icon' src='/images/select-yellow.png'></image>
             <view class='service-text'>{{item}}</view>
         </view>
     </view>
@@ -25,6 +25,6 @@
     </view>
 </view>
 <view class='button-bottom'>
-    <view class='button-add-to-cart'>加入购物车</view>
+    <view class='button-add-to-cart' bindtap='addToCart'>加入购物车</view>
     <view class='button-buy-now' bindtap='onTapBuy'>立即购买</view>
 </view>
