@@ -13,7 +13,7 @@
 </view>
 <view wx:elif='{{items.length > 0}}'>
     <view class='cart-top'>
-        <view class='select-all'>
+        <view class='select-all' bindtap='onTapSelectAll'>
             <view class="select-wrapper white {{isSelectAll ? 'select' : ''}}">
                 <image class='select-image' src='/images/select-black.png' wx:if='{{isSelectAll}}'></image>
             </view>
@@ -23,7 +23,7 @@
     </view>
     <scroll-view class='items' scroll-y scroll-with-animation enable-back-to-top>
         <view class='item-card' wx:for='{{items}}' wx:for-item='item' wx:key='id'>
-            <view class="select-wrapper  {{selectMap[item.id] ? 'select' : ''}}">
+            <view class="select-wrapper  {{selectMap[item.id] ? 'select' : ''}}" bindtap='onTapSelectSingle' data-id='{{item.id}}'>
                 <image class='select-image' src='/images/select-black.png' wx:if='{{selectMap[item.id]}}'></image>
             </view>
             <image class='item-image' src='{{item.image}}'></image>
@@ -40,7 +40,7 @@
         </view>
     </scroll-view>
     <view class='checkout'>
-        <view class='select-all'>
+        <view class='select-all' bindtap='onTapSelectAll'>
             <view class="select-wrapper {{isSelectAll ? 'select' : ''}}">
                 <image class='select-image' src='/images/select-black.png' wx:if='{{isSelectAll}}'></image>
             </view>

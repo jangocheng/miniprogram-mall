@@ -12,10 +12,10 @@ Page({
         userInfo: null,
         locationAuthType: app.data.locationAuthType,
         items: [], // 购物车商品列表
-        selectMap: [undefined, true, undefined], // 购物车中选中的id哈希表
-        totalAmount: 45, // 购物车总金额
+        selectMap: [], // 购物车中选中的id哈希表
+        totalAmount: 0, // 购物车总金额
         isEdit: false, // 购物车是否处于编辑状态
-        isSelectAll: true, // 购物车中商品是否全选
+        isSelectAll: false, // 购物车中商品是否全选
     },
 
     /**
@@ -134,6 +134,49 @@ Page({
                     title: '数据刷新失败',
                 })
             }
+        })
+    },
+
+    /**
+     * 购物车商品的单个选中
+     */
+    onTapSelectSingle: function (e) {
+        let selectId = e.currentTarget.dataset.id
+        let selectMap = this.data.selectMap
+        let items = this.data.items
+        let isSelectAll = this.data.isSelectAll
+        let totalAmount = items.length
+        let selectedAmount = 0
+
+        // 单项商品被选中/取消
+        selectMap[selectId] = !selectMap[selectId]
+        selectMap.forEach(selected => {
+            selectedAmount = selected ? selectedAmount + 1 : selectedAmount
+        })
+        // 判断选中的商品个数是否与商品总数相等，则添加/取消全选
+        isSelectAll = (totalAmount === selectedAmount) ? true : false
+        this.setData({
+            selectMap,
+            isSelectAll
+        })
+    },
+
+    /**
+     * 购物车商品的全部选中
+     */
+    onTapSelectAll: function (e) {
+        let selectMap = this.data.selectMap
+        let items = this.data.items
+        let isSelectAll = this.data.isSelectAll
+        // 全选按钮被选中/取消
+        isSelectAll = !isSelectAll
+        // 遍历并修改所有商品的状态
+        items.forEach(item => {
+            selectMap[item.id] = isSelectAll
+        })
+        this.setData({
+            isSelectAll,
+            selectMap
         })
     }
 })
