@@ -14,6 +14,9 @@ var config = {
         // 购物车地址
         cartUrl: `${host}/weapp/cart`,
 
+        // 评论地址
+        commentUrl: `${host}/weapp/comment`,
+
         // 商品订单地址
         orderUrl: `${host}/weapp/orders`,
 
