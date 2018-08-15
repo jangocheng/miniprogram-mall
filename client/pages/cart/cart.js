@@ -147,6 +147,7 @@ Page({
         let isSelectAll = this.data.isSelectAll
         let totalAmount = items.length
         let selectedAmount = 0
+        let price = this.data.price
 
         // 单项商品被选中/取消
         selectMap[selectId] = !selectMap[selectId]
@@ -155,9 +156,12 @@ Page({
         })
         // 判断选中的商品个数是否与商品总数相等，则添加/取消全选
         isSelectAll = (totalAmount === selectedAmount) ? true : false
+
+        price = this.estimatedTotal(items, selectMap)
         this.setData({
             selectMap,
-            isSelectAll
+            isSelectAll,
+            price
         })
     },
 
@@ -168,15 +172,31 @@ Page({
         let selectMap = this.data.selectMap
         let items = this.data.items
         let isSelectAll = this.data.isSelectAll
+        let price = this.data.price
+
         // 全选按钮被选中/取消
         isSelectAll = !isSelectAll
         // 遍历并修改所有商品的状态
         items.forEach(item => {
             selectMap[item.id] = isSelectAll
         })
+
+        price = this.estimatedTotal(items, selectMap)
         this.setData({
             isSelectAll,
-            selectMap
+            selectMap,
+            price
         })
-    }
+    },
+
+    /**
+     * 估算价格
+     */
+    estimatedTotal(items, selectedMap) {
+        let price = 0
+        items.forEach(item => {
+            price = selectedMap[item.id] ? price + item.price * item.count : price
+        })
+        return price
+    },
 })
