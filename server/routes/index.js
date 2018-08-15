@@ -49,5 +49,7 @@ router.get('/cart', validationMiddleware, controllers.cart.list)
 router.post('/cart', validationMiddleware, controllers.cart.update)
 // PUT 添加评论
 router.put('/comment', validationMiddleware, controllers.comment.add)
+// 获取评论列表
+router.get('/comment', controllers.comment.list)
 
 module.exports = router

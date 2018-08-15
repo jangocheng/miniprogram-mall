@@ -14,5 +14,17 @@ module.exports = {
             await DB.query('INSERT INTO comment(user, username, avatar, content, item_id) VALUES (?, ?, ?, ?, ?)', [user, username, avatar, content, itemId])
         }
         ctx.state.data = {}
-    }
+    },
+
+    /**
+     * 获取评论列表
+     */
+    list: async ctx => {
+        let itemId = +ctx.request.query.itemId
+        if (!isNaN(itemId)) {
+            ctx.state.data = await DB.query('select * from comment where comment.item_id = ?', [itemId])
+        } else {
+            ctx.state.data = []
+        }
+    },
 } 
