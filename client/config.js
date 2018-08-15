@@ -17,11 +17,8 @@ var config = {
         // 商品订单地址
         orderUrl: `${host}/weapp/orders`,
 
-        // 商品列表地址
-        itemsUrl: `${host}/weapp/items`,
-
         // 商品详情地址
-        itemUrl: `${host}/weapp/items/`,
+        itemUrl: `${host}/weapp/items`,
 
         // 登录地址，用于建立会话
         loginUrl: `${host}/weapp/login`,

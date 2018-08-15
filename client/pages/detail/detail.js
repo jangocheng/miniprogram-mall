@@ -115,7 +115,7 @@ Page({
     getItem: function (id) {
         util.showBusy('商品数据加载中...')
         qcloud.request({
-            url: config.service.itemUrl + id,
+            url: config.service.itemUrl + '/' + id,
             success: res => {
                 util.hideBusy()
                 let data = res.data

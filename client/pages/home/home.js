@@ -75,7 +75,7 @@ Page({
         util.showBusy('商品数据加载中...')
         var that = this
         qcloud.request({
-            url: config.service.itemsUrl,
+            url: config.service.itemUrl,
             success: res => {
                 let data = res.data
                 if (!data.code) {
