@@ -20,6 +20,8 @@ Page({
      */
     onLoad: function (options) {
         let item = {
+            commented: options.commented || true,
+            orderId: options.orderId,
             id: options.id,
             title: options.title,
             price: options.price,
@@ -107,7 +109,8 @@ Page({
             method: 'PUT',
             data: {
                 content: content,
-                itemId: this.data.item.id
+                itemId: this.data.item.id,
+                orderId: this.data.item.orderId
             },
             success: res => {
                 wx.hideLoading()

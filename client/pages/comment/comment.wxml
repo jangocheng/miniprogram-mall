@@ -6,7 +6,7 @@
         <view class='item-price'>￥ {{item.price}}</view>
     </view>
 </view>
-<view>
+<view wx:if='{{item.commented > 0 ? false : true}}'>
     <view class='comment-add'>
         <textarea class='comment-input' placeholder-class='comment-placeholder' placeholder='请填写你的评价' auto-focus maxlength='255' bindinput='onInput'></textarea>
     </view>

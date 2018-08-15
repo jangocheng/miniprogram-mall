@@ -8,10 +8,14 @@ module.exports = {
         let user = ctx.state.$wxInfo.userinfo.openId
         let username = ctx.state.$wxInfo.userinfo.nickName
         let avatar = ctx.state.$wxInfo.userinfo.avatarUrl
+        let orderId = +ctx.request.body.orderId
         let itemId = +ctx.request.body.itemId
         let content = ctx.request.body.content || null
         if (!isNaN(itemId)) {
             await DB.query('INSERT INTO comment(user, username, avatar, content, item_id) VALUES (?, ?, ?, ?, ?)', [user, username, avatar, content, itemId])
+            // 更新订单的评论状态为 true(1)，默认 false
+            let commented = 1
+            await DB.query('UPDATE order_item SET commented = ? WHERE order_item.order_id = ? AND order_item.item_id = ?;', [commented, orderId, itemId])
         }
         ctx.state.data = {}
     },
