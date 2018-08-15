@@ -95,6 +95,7 @@ Page({
      * @param {*} e 
      */
     onTapPostComment: function (e) {
+        let that = this
         let content = this.data.commentContent
         if (!content) return
         wx.showLoading({
@@ -112,6 +113,8 @@ Page({
                 wx.hideLoading()
                 let data = res.data
                 if (!data.code) {
+                    // 成功后，刷新评论
+                    that.getComments(that.data.item.id)
                     wx.showToast({
                         title: '发表评论成功'
                     })
