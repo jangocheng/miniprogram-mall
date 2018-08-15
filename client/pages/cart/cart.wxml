@@ -50,7 +50,7 @@
             <view>总价</view>
             <view class='checkout-amount'>¥ {{price}}</view>
         </view>
-        <view class="checkout-button {{price ? 'canpay' : ''}}">结算</view>
+        <view class="checkout-button {{price ? 'canpay' : ''}}" bindtap='onTapCheckout'>结算</view>
     </view>
 </view>
 <view class='cart-empty' wx:else>

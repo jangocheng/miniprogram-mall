@@ -83,7 +83,8 @@ Page({
             login: true,
             method: 'POST',
             data: {
-                list: [item]
+                list: [item],
+                isInstantBuy: true
             },
             success: result => {
                 wx.hideLoading()

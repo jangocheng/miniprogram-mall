@@ -6,6 +6,7 @@ module.exports = {
     add: async ctx => {
         let user = ctx.state.$wxInfo.userinfo.openId
         let items = ctx.request.body.list || []
+        let isInstantBuy = !!ctx.request.body.isInstantBuy
         // 插入订单至 order_user 表
         let order = await DB.query('INSERT INTO order_user(user) VALUES (?)', [user])
         // 插入订单至 order_item 表
@@ -14,13 +15,22 @@ module.exports = {
         // 插入时所需要的数据和参数
         let query = []
         let param = []
+        // 从购物车删除时所需要的数据和参数
+        let pendingDeleteQuery = []
+        let pendingDeleteId = []
         items.forEach(item => {
             query.push('(?, ?, ?)')
             param.push(orderId)
             param.push(item.id)
             param.push(item.count || 1)
+            pendingDeleteQuery.push('?')
+            pendingDeleteId.push(item.id)
         })
         await DB.query(sql + query.join(', '), param)
+        if (!isInstantBuy) {
+            // 非立即购买，购物车旧数据全部删除，此处本应使用事务实现，此处简化了
+            await DB.query('DELETE FROM cart_user WHERE cart_user.id IN (' + pendingDeleteQuery.join(', ') + ') AND cart_user.user = ?', [...pendingDeleteId, user])
+        }
         ctx.state.data = {}
     },
 
