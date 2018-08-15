@@ -24,5 +24,26 @@ module.exports = {
     list: async ctx => {
         let user = ctx.state.$wxInfo.userinfo.openId
         ctx.state.data = await DB.query('SELECT * FROM cart_user LEFT JOIN item ON cart_user.id = item.id WHERE cart_user.user = ?', [user])
+    },
+
+    /**
+     * 更新购物车商品列表
+     */
+    update: async ctx => {
+        let user = ctx.state.$wxInfo.userinfo.openId
+        let items = ctx.request.body.list || []
+        // 购物车旧数据全部删除
+        await DB.query('DELETE FROM cart_user WHERE cart_user.user = ?', [user])
+        let sql = 'INSERT INTO cart_user(id, count, user) VALUES '
+        let query = []
+        let param = []
+        items.forEach(item => {
+            query.push('(?, ?, ?)')
+            param.push(item.id)
+            param.push(item.count || 1)
+            param.push(user)
+        })
+        await DB.query(sql + query.join(', '), param)
+        ctx.state.data = {}
     }
 } 
