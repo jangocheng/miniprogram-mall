@@ -6,6 +6,12 @@
         <view class='item-price'>￥ {{item.price}}</view>
     </view>
 </view>
+<view>
+    <view class='comment-add'>
+        <textarea class='comment-input' placeholder-class='comment-placeholder' placeholder='请填写你的评价' auto-focus maxlength='255' bindinput='onInput'></textarea>
+    </view>
+    <view class="comment-button {{!commentContent ? 'dis' : ''}}">提交评价</view>
+</view>
 <view class='comments'>
     <view class='comment-title'>{{comments.length}}条评价</view>
     <view class='comment-card' wx:for='{{comments}}' wx:key='id' wx:for-item='item'>
