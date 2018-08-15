@@ -13,7 +13,7 @@ Page({
         locationAuthType: app.data.locationAuthType,
         items: [], // 购物车商品列表
         selectMap: [], // 购物车中选中的id哈希表
-        totalAmount: 0, // 购物车总金额
+        price: 0, // 购物车总金额
         isEdit: false, // 购物车是否处于编辑状态
         isSelectAll: false, // 购物车中商品是否全选
     },
