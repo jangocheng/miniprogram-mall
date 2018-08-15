@@ -194,9 +194,13 @@ Page({
      */
     onTapEdit: function () {
         let isEdit = this.data.isEdit
-        this.setData({
-            isEdit: !isEdit
-        })
+        if (isEdit) {
+            this.update()
+        } else {
+            this.setData({
+                isEdit: !isEdit
+            })
+        }
     },
 
     /**
@@ -235,6 +239,12 @@ Page({
         }
         // 调整结算总价
         let price = this.estimatedTotal(items, selectedMap)
+
+        // 当购物车为空，同步至服务器
+        if (!items.length) {
+            this.update()
+        }
+
         this.setData({
             price,
             items,
@@ -251,5 +261,41 @@ Page({
             price = selectedMap[item.id] ? price + item.price * item.count : price
         })
         return price
+    },
+
+    update: function () {
+        wx.showLoading({
+            title: '更新购物车数据',
+        })
+        let items = this.data.items
+        qcloud.request({
+            url: config.service.cartUrl,
+            method: 'POST',
+            login: true,
+            data: {
+                list: items
+            },
+            success: res => {
+                wx.hideLoading()
+                let data = res.data
+                if (!data.code) {
+                    this.setData({
+                        isEdit: false
+                    })
+                } else {
+                    wx.showToast({
+                        icon: 'none',
+                        title: '更新购物车失败'
+                    })
+                }
+            },
+            fail: () => {
+                wx.hideLoading()
+                wx.showToast({
+                    icon: 'none',
+                    title: '更新购物车失败'
+                })
+            }
+        })
     }
 })
