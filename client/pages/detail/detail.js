@@ -10,7 +10,6 @@ Page({
      */
     data: {
         item: {},
-        haveComment: true
     },
 
     /**
@@ -74,7 +73,7 @@ Page({
      */
     onTapCommentEntry: function () {
         let item = this.data.item
-        if (this.data.haveComment) {
+        if (item.commentCount) {
             wx.navigateTo({
                 url: `/pages/comment/comment?id=${item.id}&price=${item.price}&title=${item.title}&image=${item.image}`
             })

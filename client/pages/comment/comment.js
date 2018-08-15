@@ -1,6 +1,8 @@
 // pages/comment/comment.js
 var qcloud = require('../../vendor/wafer2-client-sdk/index')
 var config = require('../../config')
+var util = require('../../utils/util')
+
 
 Page({
 
@@ -10,17 +12,7 @@ Page({
     data: {
         item: {},
         commentContent: '',
-        comments: [{
-            avatar: '/images/user.png',
-            username: 'test1',
-            createTime: '2018年01月01日',
-            content: '测试评论',
-        }, {
-            avatar: '/images/user.png',
-            username: 'test2',
-            createTime: '2018年02月01日',
-            content: '测试评论',
-        }], // 评论列表
+        comments: [], // 评论列表
     },
 
     /**
@@ -36,6 +28,7 @@ Page({
         this.setData({
             item: item
         })
+        this.getComments(item.id)
     },
 
     /**
@@ -136,6 +129,31 @@ Page({
                     title: '发表评论失败'
                 })
             }
+        })
+    },
+
+    /**
+     * 获取用户评论列表
+     * @param {*} id 
+     */
+    getComments(id) {
+        qcloud.request({
+            url: config.service.commentUrl,
+            data: {
+                itemId: id
+            },
+            success: res => {
+                let data = res.data
+                if (!data.code) {
+                    this.setData({
+                        comments: data.data.map(item => {
+                            let itemDate = new Date(item.create_time)
+                            item.createTime = util.formatTime(itemDate)
+                            return item
+                        })
+                    })
+                }
+            },
         })
     },
 })
