@@ -19,21 +19,21 @@
             </view>
             <view class='select-text'>全选</view>
         </view>
-        <view class='cart-edit'>{{isEdit ? '完成' : '编辑'}}</view>
+        <view class='cart-edit' bindtap='onTapEdit'>{{isEdit ? '完成' : '编辑'}}</view>
     </view>
     <scroll-view class='items' scroll-y scroll-with-animation enable-back-to-top>
         <view class='item-card' wx:for='{{items}}' wx:for-item='item' wx:key='id'>
-            <view class="select-wrapper  {{selectMap[item.id] ? 'select' : ''}}" bindtap='onTapSelectSingle' data-id='{{item.id}}'>
-                <image class='select-image' src='/images/select-black.png' wx:if='{{selectMap[item.id]}}'></image>
+            <view class="select-wrapper  {{selectedMap[item.id] ? 'select' : ''}}" bindtap='onTapSelectSingle' data-id='{{item.id}}'>
+                <image class='select-image' src='/images/select-black.png' wx:if='{{selectedMap[item.id]}}'></image>
             </view>
             <image class='item-image' src='{{item.image}}'></image>
             <view class='item-info'>
                 <view class='item-title'>{{item.title}}</view>
                 <view class='item-price'>￥ {{item.price}}</view>
                 <view class='item-edit' wx:if='{{isEdit}}'>
-                    <view class='count-minus'>-</view>
+                    <view class='count-minus' bindtap="adjustCount" data-type="minus" data-id='{{item.id}}'>-</view>
                     <view class='count-now'>{{item.count}}</view>
-                    <view class='count-add'>+</view>
+                    <view class='count-add' bindtap="adjustCount" data-type="add" data-id='{{item.id}}'>+</view>
                 </view>
                 <view class='item-count' wx:else>x {{item.count}}</view>
             </view>

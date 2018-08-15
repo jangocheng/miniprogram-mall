@@ -12,7 +12,7 @@ Page({
         userInfo: null,
         locationAuthType: app.data.locationAuthType,
         items: [], // 购物车商品列表
-        selectMap: [], // 购物车中选中的id哈希表
+        selectedMap: [], // 购物车中选中的id哈希表
         price: 0, // 购物车总金额
         isEdit: false, // 购物车是否处于编辑状态
         isSelectAll: false, // 购物车中商品是否全选
@@ -142,7 +142,7 @@ Page({
      */
     onTapSelectSingle: function (e) {
         let selectId = e.currentTarget.dataset.id
-        let selectMap = this.data.selectMap
+        let selectedMap = this.data.selectedMap
         let items = this.data.items
         let isSelectAll = this.data.isSelectAll
         let totalAmount = items.length
@@ -150,16 +150,16 @@ Page({
         let price = this.data.price
 
         // 单项商品被选中/取消
-        selectMap[selectId] = !selectMap[selectId]
-        selectMap.forEach(selected => {
+        selectedMap[selectId] = !selectedMap[selectId]
+        selectedMap.forEach(selected => {
             selectedAmount = selected ? selectedAmount + 1 : selectedAmount
         })
         // 判断选中的商品个数是否与商品总数相等，则添加/取消全选
         isSelectAll = (totalAmount === selectedAmount) ? true : false
 
-        price = this.estimatedTotal(items, selectMap)
+        price = this.estimatedTotal(items, selectedMap)
         this.setData({
-            selectMap,
+            selectedMap,
             isSelectAll,
             price
         })
@@ -169,7 +169,7 @@ Page({
      * 购物车商品的全部选中
      */
     onTapSelectAll: function (e) {
-        let selectMap = this.data.selectMap
+        let selectedMap = this.data.selectedMap
         let items = this.data.items
         let isSelectAll = this.data.isSelectAll
         let price = this.data.price
@@ -178,25 +178,78 @@ Page({
         isSelectAll = !isSelectAll
         // 遍历并修改所有商品的状态
         items.forEach(item => {
-            selectMap[item.id] = isSelectAll
+            selectedMap[item.id] = isSelectAll
         })
 
-        price = this.estimatedTotal(items, selectMap)
+        price = this.estimatedTotal(items, selectedMap)
         this.setData({
             isSelectAll,
-            selectMap,
+            selectedMap,
             price
+        })
+    },
+
+    /**
+     * 用户点击编辑
+     */
+    onTapEdit: function () {
+        let isEdit = this.data.isEdit
+        this.setData({
+            isEdit: !isEdit
+        })
+    },
+
+    /**
+     * 调整商品数量
+     * @param {*} event 
+     */
+    adjustCount: function (event) {
+        let selectedMap = this.data.selectedMap
+        let items = this.data.items
+        let dataset = event.currentTarget.dataset
+        let adjustType = dataset.type
+        let itemId = dataset.id
+        let item
+        let index
+        for (index = 0; index < items.length; index++) {
+            if (itemId === items[index].id) {
+                item = items[index]
+                break
+            }
+        }
+        if (item) {
+            if (adjustType === 'add') {
+                // 点击加号
+                item.count++
+            } else {
+                // 点击减号
+                if (item.count <= 1) {
+                    // 商品数量不超过1，点击减号相当于删除
+                    delete selectedMap[itemId]
+                    items.splice(index, 1)
+                } else {
+                    // 商品数量大于1
+                    item.count--
+                }
+            }
+        }
+        // 调整结算总价
+        let price = this.estimatedTotal(items, selectedMap)
+        this.setData({
+            price,
+            items,
+            selectedMap
         })
     },
 
     /**
      * 估算价格
      */
-    estimatedTotal(items, selectedMap) {
+    estimatedTotal: function (items, selectedMap) {
         let price = 0
         items.forEach(item => {
             price = selectedMap[item.id] ? price + item.price * item.count : price
         })
         return price
-    },
+    }
 })
