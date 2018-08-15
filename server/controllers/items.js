@@ -5,9 +5,9 @@ module.exports = {
     },
     detail: async ctx => {
         let item
-        let itemID = +ctx.params.id;
-        if (!isNaN(itemID)) {
-            item = (await DB.query("SELECT * FROM item WHERE item.id = ?", [itemID]))[0]
+        let itemId = +ctx.params.id;
+        if (!isNaN(itemId)) {
+            item = (await DB.query("SELECT * FROM item WHERE item.id = ?", [itemId]))[0]
         } else {
             item = {}
         }
