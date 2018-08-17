@@ -1,6 +1,6 @@
 <!--pages/home/home.wxml-->
 <image class='bg' src='/images/bg.png'></image>
-<view class='hot-card'>
+<navigator class='hot-card' url='/pages/detail/detail?id={{items[0].id}}'>
     <view class='hot-title'>
         <image class='hot-title-line' src='/images/line-red.png'></image>
         <view class='hot-title-text'>{{items[0].title}}</view>
@@ -8,7 +8,7 @@
     </view>
     <image class='hot-info' src='/images/discount.png'></image>
     <image class='hot-image' src='{{items[0].image}}'></image>
-</view>
+</navigator>
 <view class='items-title'>
     <image class='items-title-line' src='/images/line-black.png'></image>
     <view class='items-title-text'>春季推荐</view>
