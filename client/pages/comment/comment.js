@@ -12,6 +12,7 @@ Page({
     data: {
         item: {},
         commentContent: '',
+        commentImages: [],
         comments: [], // 评论列表
     },
 
@@ -103,39 +104,104 @@ Page({
         wx.showLoading({
             title: '正在发表评论'
         })
-        qcloud.request({
-            url: config.service.commentUrl,
-            login: true,
-            method: 'PUT',
-            data: {
-                content: content,
-                itemId: this.data.item.id,
-                orderId: this.data.item.orderId
-            },
-            success: res => {
-                wx.hideLoading()
-                let data = res.data
-                if (!data.code) {
-                    // 成功后，刷新评论
-                    that.getComments(that.data.item.id)
-                    wx.showToast({
-                        title: '发表评论成功'
-                    })
-                } else {
+        this.uploadImage(images => {
+            qcloud.request({
+                url: config.service.commentUrl,
+                login: true,
+                method: 'PUT',
+                data: {
+                    content: content,
+                    itemId: this.data.item.id,
+                    orderId: this.data.item.orderId
+                },
+                success: res => {
+                    wx.hideLoading()
+                    let data = res.data
+                    if (!data.code) {
+                        // 成功后，刷新评论
+                        that.getComments(that.data.item.id)
+                        wx.showToast({
+                            title: '发表评论成功'
+                        })
+                    } else {
+                        wx.showToast({
+                            icon: 'none',
+                            title: '发表评论失败'
+                        })
+                    }
+                },
+                fail: () => {
+                    wx.hideLoading()
                     wx.showToast({
                         icon: 'none',
                         title: '发表评论失败'
                     })
                 }
+            })
+        })
+    },
+
+    /**
+     * 用户点击选择图片
+     */
+    onTapChooseImage: function () {
+        wx.chooseImage({
+            count: 3,
+            sizeType: ['compressed'],
+            sourceType: ['album', 'camera'],
+            success: res => {
+                let commentImages = res.tempFilePaths
+                this.setData({
+                    commentImages
+                })
             },
-            fail: () => {
-                wx.hideLoading()
-                wx.showToast({
-                    icon: 'none',
-                    title: '发表评论失败'
+        })
+    },
+
+    /**
+     * 用户点击预览图片
+     * @param {*} e 
+     */
+    onTapPreviewImage: function (e) {
+        let target = e.currentTarget
+        let src = target.dataset.src
+        wx.previewImage({
+            current: src,
+            urls: this.data.commentImages
+        })
+    },
+    
+    /**
+     * 上传图片
+     */
+    uploadImage: function (e) {
+        let commentImages = this.data.commentImages
+        let images = []
+        if (commentImages.length) {
+            let length = commentImages.length
+            for (let i = 0; i < length; ++i) {
+                wx.uploadFile({
+                    url: config.service.uploadUrl,
+                    filePath: commentImages[i],
+                    name: 'file',
+                    success: res => {
+                        let data = JSON.parse(res.data)
+                        --length
+                        if (!data.code) {
+                            images.push(data.data.imgUrl)
+                        }
+                        if (length <= 0) {
+                            e && e(images)
+                        }
+                    },
+                    fail: () => {
+                        --length
+                    }
                 })
             }
-        })
+        } else {
+            e && e(images)
+        }
     },
 
     /**

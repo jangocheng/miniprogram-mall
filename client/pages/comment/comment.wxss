@@ -61,7 +61,7 @@
     color: rgba(29, 29, 38, 0.4);
 }
 
-.preview-cnt {
+.preview-images {
     display: flex;
     margin-top: 29rpx;
     margin-left: 29rpx;
@@ -74,7 +74,7 @@
     border-radius: 5rpx;
 }
 
-.opr-upload {
+.choose-image {
     display: block;
     margin-top: 29rpx;
     margin-left: 29rpx;
