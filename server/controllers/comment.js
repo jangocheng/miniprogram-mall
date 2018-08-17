@@ -11,8 +11,10 @@ module.exports = {
         let orderId = +ctx.request.body.orderId
         let itemId = +ctx.request.body.itemId
         let content = ctx.request.body.content || null
+        let images = ctx.request.body.images || []
+        images = images.join(';;')
         if (!isNaN(itemId)) {
-            await DB.query('INSERT INTO comment(user, username, avatar, content, item_id) VALUES (?, ?, ?, ?, ?)', [user, username, avatar, content, itemId])
+            await DB.query('INSERT INTO comment(user, username, avatar, content, images, item_id) VALUES (?, ?, ?, ?, ?, ?)', [user, username, avatar, content, images, itemId])
             // 更新订单的评论状态为 true(1)，默认 false
             let commented = 1
             await DB.query('UPDATE order_item SET commented = ? WHERE order_item.order_id = ? AND order_item.item_id = ?;', [commented, orderId, itemId])
