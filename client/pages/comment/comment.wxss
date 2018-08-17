@@ -163,7 +163,8 @@
 
 .preview-item {
     margin-right: 10rpx;
+    padding: 5rpx;
     width: 180rpx;
     height: 180rpx;
-    border-radius: 10rpx;
+    border: 4rpx dashed #bdbdbd;
 }
