@@ -111,6 +111,7 @@ Page({
                 method: 'PUT',
                 data: {
                     content: content,
+                    images: images,
                     itemId: this.data.item.id,
                     orderId: this.data.item.orderId
                 },
@@ -165,12 +166,13 @@ Page({
     onTapPreviewImage: function (e) {
         let target = e.currentTarget
         let src = target.dataset.src
+        let urls = target.dataset.urls || this.data.commentImages
         wx.previewImage({
             current: src,
-            urls: this.data.commentImages
+            urls: urls
         })
     },
-    
+
     /**
      * 上传图片
      */
@@ -221,11 +223,12 @@ Page({
                         comments: data.data.map(item => {
                             let itemDate = new Date(item.create_time)
                             item.createTime = util.formatTime(itemDate)
+                            item.images = item.images ? item.images.split(';;') : []
                             return item
                         })
                     })
                 }
             },
         })
-    },
+    }
 })
