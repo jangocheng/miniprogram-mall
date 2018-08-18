@@ -22,11 +22,11 @@ docker ps
 ...
 ```
 
-##### Node服务端启动失败
-1.查找问题
- * [server/config.js](server/config.js) 配置文件是否填写合法
-2.自行解决
-3.Issues
+## Q&A: Node服务端启动失败？
+
+* 查找问题
+  * [server/config.js](server/config.js) 配置文件是否填写合法
+* Issues
 
 ## TODO
  - [ ] 真实支付/交易接口
