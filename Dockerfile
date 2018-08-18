@@ -6,7 +6,7 @@ ENV APP_DIR /var/lib/app
 WORKDIR $APP_DIR
 
 # Bundle app source
-COPY server .
+COPY ./server .
 
 RUN set -ex; \
     \
