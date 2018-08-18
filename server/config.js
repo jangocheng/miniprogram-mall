@@ -39,7 +39,23 @@ const CONF = {
 
     // 微信登录态有效期
     wxLoginExpires: 7200,
-    wxMessageToken: 'abcdefgh'
+    wxMessageToken: 'abcdefgh',
+
+    /**
+     * 其他配置: 用于自行搭建小程序服务
+     */
+    // 自定义服务器域名
+    // serverHost: '',
+    // 腾讯云 Tunnel
+    // tunnelServerUrl: 'https://tunnel.ws.qcloud.la',
+    // 自定义签名钥匙
+    // tunnelSignatureKey: '27fb7d1c161b7ca52d73cce0f1d833f9f5b5ec89',
+    // 腾讯云账号的APPID
+    // qcloudAppId: '',
+    // 腾讯云相关配置可以查看云 API 秘钥控制台
+    // https://console.cloud.tencent.com/capi
+    // qcloudSecretId: '',
+    // qcloudSecretKey: '',
 }
 
 module.exports = CONF
