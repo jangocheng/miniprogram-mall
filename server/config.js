@@ -1,7 +1,7 @@
 const ENV = process.env
 const CONF = {
-    port: '5757',
-    rootPathname: '',
+    port: ENV.EXPOSE_PORT || '5757',
+    rootPathname: ENV.ROOT_PATH || '',
 
     // 微信小程序 App ID
     appId: ENV.APP_ID,
@@ -39,8 +39,8 @@ const CONF = {
     },
 
     // 微信登录态有效期
-    wxLoginExpires: 7200,
-    wxMessageToken: 'abcdefgh',
+    wxLoginExpires: ENV.WX_LOGIN_EXPIRES || 7200,
+    wxMessageToken: ENV.WX_MESSAGE_TOKEN || 'abcdefgh',
 
     /**
      * 其他配置: 用于自行搭建小程序服务
