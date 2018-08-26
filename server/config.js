@@ -57,6 +57,7 @@ const CONF = {
     // https://console.cloud.tencent.com/capi
     qcloudSecretId: ENV.QCLOUD_SECRET_ID || '',
     qcloudSecretKey: ENV.QCLOUD_SECRET_KEY || '',
+    networkTimeout: 30000
 }
 
 module.exports = CONF
