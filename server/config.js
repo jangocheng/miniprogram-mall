@@ -10,7 +10,8 @@ const CONF = {
     appSecret: ENV.APP_SECRET,
 
     // 是否使用腾讯云代理登录小程序
-    useQcloudLogin: true,
+    // 本地搭建时设置为 false
+    useQcloudLogin: ENV.USE_QCLOUD_LOGIN || true,
 
     /**
      * MySQL 配置，用来存储 session 和用户信息
