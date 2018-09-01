@@ -1,4 +1,7 @@
 # 商城小程序客户端 + 服务端 Node.js
+
+[![Build Status](https://travis-ci.com/binarization/mall-wechat-weapp.svg?branch=master)](https://travis-ci.com/binarization/mall-wechat-weapp)
+
 此小程序是基于腾讯云 Wafer2 开发套件建立的一套商城应用。实现的功能十分精简，没有冗余，也不具备扩展性。设计思路来自于UDACITY，在此基础上做了适当的调整，让代码的可读性更好。
 
 ## 部署
