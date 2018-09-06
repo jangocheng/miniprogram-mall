@@ -1,6 +1,4 @@
 # OSX
 .DS_Store
-# local project config
-project.config.json
 # VSCode environment variables file
 .vscode
