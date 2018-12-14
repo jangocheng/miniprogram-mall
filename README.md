@@ -2,10 +2,10 @@
 
 此小程序是基于腾讯云 Wafer2 开发套件建立的一套商城应用。实现的功能十分精简，没有冗余，也不具备扩展性。设计思路来自于UDACITY，在此基础上做了适当的调整，让代码的可读性更好。
 
-[![LICENSE](https://img.shields.io/github/license/binarization/mall-weapp.svg)]((https://github.com/binarization/mall-weapp/blob/master/LICENSE))
-[![Build Status](https://travis-ci.com/binarization/mall-weapp.svg?branch=master)](https://travis-ci.com/binarization/mall-weapp)
-[![Docker Build Status](https://img.shields.io/docker/build/binarization/mall-weapp.svg)](https://hub.docker.com/r/binarization/mall-weapp/)
-[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/binarization/mall-weapp.svg)]()
+[![LICENSE](https://img.shields.io/github/license/trafficMGR/mall-weapp.svg)]((https://github.com/trafficMGR/mall-weapp/blob/master/LICENSE))
+[![Build Status](https://travis-ci.com/trafficMGR/mall-weapp.svg?branch=master)](https://travis-ci.com/trafficMGR/mall-weapp)
+[![Docker Build Status](https://img.shields.io/docker/build/trafficMGR/mall-weapp.svg)](https://hub.docker.com/r/trafficMGR/mall-weapp/)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/trafficMGR/mall-weapp.svg)]()
 
 ## 部署
  * 服务端
@@ -21,7 +21,7 @@
 
 ```Bash
 # 获得一份源代码拷贝
-git clone https://github.com/binarization/mall-weapp.git
+git clone https://github.com/trafficMGR/mall-weapp.git
 # 构建镜像
 docker build --rm -f Dockerfile -t mall-weapp:latest .
 # 启动容器
